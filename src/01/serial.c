@@ -65,3 +65,15 @@ int serial_init(int index) {
 
     return 0;
 }
+
+int serial_is_send_enable(int index) {
+    volatile struct h8_3069f_sci *sci = regs[index].sci;
+
+    while(!serial_is_send_enable(index)){
+        ;
+    }
+    sci->tdr = c;
+    sci->ssr &= ~H8_3069F_SCI_SSR_TDRE;
+
+    return 0;
+}
