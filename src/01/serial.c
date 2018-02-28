@@ -55,6 +55,7 @@ static struct {
     { H8_3069F_SCI2 },
 };
 
+// シリアスデバイスの初期化
 int serial_init(int index) {
     volatile struct h8_3069f_sci *sci = regs[index].sci;
 
@@ -66,7 +67,16 @@ int serial_init(int index) {
     return 0;
 }
 
+
 int serial_is_send_enable(int index) {
+    volatile struct h8_3069f_sci *sci = regs[index].sci;
+    return (sci->ssr & H8_3069F_SCI_SSR_TDRE);
+}
+
+// シリアルデバイスへの1文字送信を行う
+// これが、lib.cのputcを呼び出している。
+// この、シリアル経由で、文字列がputsに送られる。
+int serial_send_byte(int index, unsigned char c) {
     volatile struct h8_3069f_sci *sci = regs[index].sci;
 
     while(!serial_is_send_enable(index)){
