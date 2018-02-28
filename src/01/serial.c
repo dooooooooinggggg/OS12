@@ -55,3 +55,13 @@ static struct {
     { H8_3069F_SCI2 },
 };
 
+int serial_init(int index) {
+    volatile struct h8_3069f_sci *sci = regs[index].sci;
+
+    sci->scr = 0;
+    sci->smr = 0;
+    sci->brr = 64;
+    sci->scr = H8_3069F_SCI_SCR_RE | H8_3069F_SCI_SCR_TE;
+
+    return 0;
+}
