@@ -25,6 +25,7 @@ OBJS += lib.o serial.o
 
 TARGET = kzload
 CFLAGS = -Wall -mh -nostdinc -nostdlib -fno-builtin
+# intを32bitにすると、掛け算、割り算ができなくなる。レジスタが小さいのかな？
 # CFLAGS += -mint32
 CFLAGS += -I
 # CFLAGS += -g
