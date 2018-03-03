@@ -8,7 +8,7 @@
 $ vagrant up
 $ vagrant ssh
 
-$ ln -s /vagrant/OS12/src .
+$ ln -s /vagrant/OS12/src ~
 
 ```
 
