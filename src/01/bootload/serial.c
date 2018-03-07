@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "serial.h"
 
-#define SERIAL_SCI_NUM // sciの数
+#define SERIAL_SCI_NUM 3 // sciの数
 
 #define H8_3069F_SCI0 ((volatile struct h8_3069f_sci *)0xffffb0)
 #define H8_3069F_SCI1 ((volatile struct h8_3069f_sci *)0xffffb8)
@@ -18,16 +18,16 @@ struct h8_3069f_sci {
     volatile uint8 scmr;
 }
 
-#define H8_3069F_SCI_SMR_CKS  (0<<0)
-#define H8_3069F_SCI_SMR_CKS  (1<<0)
-#define H8_3069F_SCI_SMR_CKS  (2<<0)
-#define H8_3069F_SCI_SMR_CKS  (3<<0)
-#define H8_3069F_SCI_SMR_MP   (1<<2)
-#define H8_3069F_SCI_SMR_STOP (1<<3)
-#define H8_3069F_SCI_SMR_OE   (1<<4)
-#define H8_3069F_SCI_SMR_PE   (1<<5)
-#define H8_3069F_SCI_SMR_CHR  (1<<6)
-#define H8_3069F_SCI_SMR_CA   (1<<7)
+#define H8_3069F_SCI_SMR_CKS_PER1  (0<<0)
+#define H8_3069F_SCI_SMR_CKS_PER4  (1<<0)
+#define H8_3069F_SCI_SMR_CKS_PER16 (2<<0)
+#define H8_3069F_SCI_SMR_CKS_PER64 (3<<0)
+#define H8_3069F_SCI_SMR_MP        (1<<2)
+#define H8_3069F_SCI_SMR_STOP      (1<<3)
+#define H8_3069F_SCI_SMR_OE        (1<<4)
+#define H8_3069F_SCI_SMR_PE        (1<<5)
+#define H8_3069F_SCI_SMR_CHR       (1<<6)
+#define H8_3069F_SCI_SMR_CA        (1<<7)
 
 #define H8_3069F_SCI_SCR_CKE0 (1<<0)
 #define H8_3069F_SCI_SCR_CKE1 (1<<1)
@@ -48,7 +48,7 @@ struct h8_3069f_sci {
 #define H8_3069F_SCI_SSR_TDRE   (1<<7)
 
 static struct {
-    volatile struct  h8_3069f_sci *sci ;
+    volatile struct h8_3069f_sci *sci;
 } regs[SERIAL_SCI_NUM] = {
     { H8_3069F_SCI0 },
     { H8_3069F_SCI1 },
@@ -63,6 +63,7 @@ int serial_init(int index) {
     sci->smr = 0;
     sci->brr = 64;
     sci->scr = H8_3069F_SCI_SCR_RE | H8_3069F_SCI_SCR_TE;
+    sci->ssr = 0;
 
     return 0;
 }

@@ -26,7 +26,7 @@ TARGET = kzload
 CFLAGS = -Wall -mh -nostdinc -nostdlib -fno-builtin
 # intを32bitにすると、掛け算、割り算ができなくなる。レジスタが小さいのかな？
 # CFLAGS += -mint32
-CFLAGS += -I
+CFLAGS += -I.
 # CFLAGS += -g
 CFLAGS += -Os
 CFLAGS += -DKZLOAD
@@ -38,8 +38,7 @@ LFLAGS = -static -T ld.scr -L.
 
 all : $(TARGET)
 
-$(TARGET) :
-	$(OBJS)
+$(TARGET) : $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET) $(CFLAGS) $(LFLAGS)
 	cp $(TARGET) $(TARGET).elf
 	$(STRIP) $(TARGET)
