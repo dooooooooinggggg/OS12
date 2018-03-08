@@ -50,7 +50,7 @@ $(TARGET) : $(OBJS)
 	$(CC) -c $(CFLAGS) $<
 
 $(TARGET).mot : $(TARGET)
-	$(OBJCOPY) -O srec $(TARGET) $(TARGET).mots
+	$(OBJCOPY) -O srec $(TARGET) $(TARGET).mot
 
 image : $(TARGET).mot
 
