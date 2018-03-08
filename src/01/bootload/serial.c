@@ -16,7 +16,7 @@ struct h8_3069f_sci {
     volatile uint8 ssr;
     volatile uint8 rdr;
     volatile uint8 scmr;
-}
+};
 
 #define H8_3069F_SCI_SMR_CKS_PER1  (0<<0)
 #define H8_3069F_SCI_SMR_CKS_PER4  (1<<0)
